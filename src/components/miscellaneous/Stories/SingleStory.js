@@ -30,7 +30,7 @@ export const singleStoryStyle = {
     },
     cursor: 'pointer'
 }
-const SingleStory = ({ viewMode, story }) => {
+const SingleStory = ({ story }) => {
 
     const dispatch = useDispatch()
     const handleClick = () => {

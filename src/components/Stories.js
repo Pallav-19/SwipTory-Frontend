@@ -17,9 +17,7 @@ const Stories = () => {
         error,
 
     } = useGetStoriesQuery({ category })
-    useEffect(() => {
-        console.log(stories);
-    }, [category])
+ 
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
@@ -33,9 +31,9 @@ const Stories = () => {
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {stories?.stories?.map(x => <SingleStory key={x._id} story={x} />)}
+                {stories?.stories ? stories?.stories?.map(x => <SingleStory key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
             </Box>
-            {stories?.stories?.length !== stories?.total && < Box >
+            {(stories?.stories?.length !== stories?.total && stories?.total !== 0) && < Box >
                 <Button variant='contained' sx={{ borderRadius: '1.2rem', '&:hover': { bgcolor: '#FF7373', }, bgcolor: '#FF7373', }}>See More</Button>
             </Box>}
 

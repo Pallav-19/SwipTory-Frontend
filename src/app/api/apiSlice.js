@@ -10,6 +10,7 @@ const baseQuery = fetchBaseQuery({
         if (token) {
             headers.set('authorization', `Bearer ${token}`)
         }
+        headers.set('Content-Type', 'application/json')
         return headers
     }
 })
@@ -22,7 +23,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         console.log(refreshResult);
         if (refreshResult?.data) {
             const user = api.getState().auth.user
-            api.dispatch(setCredentials({ ...refreshResult.data, user }))
+            api.dispatch(setCredentials({ user, ...refreshResult.data }))
             result = await baseQuery(args, api, extraOptions)
         } else {
             api.dispatch(logout())

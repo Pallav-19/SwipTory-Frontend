@@ -8,6 +8,7 @@ import { currentUser } from '../features/authSlice'
 
 const Home = () => {
     const user = useSelector(currentUser)
+    
     return (
         <Box sx={{ padding: 3, display: 'flex', flexDirection: 'column', gap: 6 }}>
             <Categories />

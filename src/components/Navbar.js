@@ -1,8 +1,21 @@
-import { Box, Button, Typography } from '@mui/material'
-import React from 'react'
+import { Avatar, Box, Button, Typography } from '@mui/material'
+import React, {  } from 'react'
 import MobileMenu from './miscellaneous/MobileMenu'
-
+import AuthModal from './miscellaneous/auth/AuthModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { currentUser } from '../features/authSlice'
+import { deepPurple } from '@mui/material/colors'
+import { Bookmark } from '@mui/icons-material'
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom'
+import AddModal from './miscellaneous/Stories/AddModal'
 const Navbar = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const user = useSelector(currentUser)
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     return (
         <Box
             sx={{
@@ -22,17 +35,30 @@ const Navbar = () => {
             <Typography variant='h4' sx={{ flexGrow: 1, fontWeight: 'bold' }} >
                 SwipTory
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            {!user ? <Box sx={{ display: 'flex', gap: 2 }}>
 
-                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
+                <Button onClick={() => { dispatch(open({ context: "register" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
                     Register Now
                 </Button>
 
-                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#73ABFF', } }} variant='contained'>
+                <Button onClick={() => { dispatch(open({ context: "login" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#73ABFF', } }} variant='contained'>
                     Sign In
                 </Button>
                 <MobileMenu />
-            </Box >
+            </Box > :
+                <>
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Button onClick={() => { navigate("/bookmarks") }} sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', display: { md: 'flex', xs: 'none' }, '&:hover': { bgcolor: '#73ABFF', }, alignItems: 'center', gap: 1 }} variant='contained'>
+                            <Bookmark /> Bookmarks
+                        </Button>
+                        <Button onClick={() => { handleOpen() }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'flex', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', }, alignItems: 'center', gap: 1 }} variant='contained'>
+                            <AddIcon /> Add Story
+                        </Button>
+                        <Avatar sx={{ bgcolor: deepPurple[500], cursor: 'pointer' }}>{user?.username?.split('')[0].toUpperCase()}</Avatar>
+                        <AddModal open={open} handleClose={handleClose} />
+                    </Box>
+                </>}
+            <AuthModal />
         </Box>
     )
 }

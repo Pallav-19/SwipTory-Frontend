@@ -61,7 +61,7 @@ const Categories = () => {
             <>
                 {
                     categories.map(x =>
-                        (<SingleCategory key={x.id} category={x.name} background={x.background} />))
+                        (<SingleCategory key={x.id} category={x} background={x.background} />))
                 }
             </>
             <IconButton onClick={scrollRight} sx={{ ...buttonStyle, right: 10, display: { md: rightButtonVisible ? "block" : "none", xs: 'none' }, }}  ><ArrowForwardIosIcon /></IconButton>

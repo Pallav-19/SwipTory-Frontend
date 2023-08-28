@@ -9,7 +9,7 @@ import all from "../assets/images/all.jpg"
 
 export const categories =
     [
-        { name: "All", id: 'All', background: all },
+        { name: "All", id: 'ALL', background: all },
         { name: "Food", id: 'FOOD', background: food },
         { name: "Health", id: 'HEALTH', background: health },
         { name: "Education", id: 'EDUCATION', background: education },

@@ -18,7 +18,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions)
     if (result?.error?.originalStatus === 403) {
         console.log('sending refresh');
-        const refreshResult = await baseQuery('/refresh', api, extraOptions)
+        const refreshResult = await baseQuery('/auth/refresh', api, extraOptions)
         console.log(refreshResult);
         if (refreshResult?.data) {
             const user = api.getState().auth.user
@@ -34,3 +34,4 @@ export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
     endpoints: builder => ({})
 })
+

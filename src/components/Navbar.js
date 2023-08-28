@@ -19,16 +19,16 @@ const Navbar = () => {
                 top: 0,
                 zIndex: 10
             }}>
-            <Typography variant='h5' sx={{ flexGrow: 1, fontWeight: 'bold' }} >
+            <Typography variant='h4' sx={{ flexGrow: 1, fontWeight: 'bold' }} >
                 SwipTory
             </Typography>
             <Box sx={{ display: 'flex', gap: 2 }}>
 
-                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'block', xs: 'none' } }} variant='contained'>
+                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
                     Register Now
                 </Button>
 
-                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', display: { md: 'block', xs: 'none' } }} variant='contained'>
+                <Button sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#73ABFF', } }} variant='contained'>
                     Sign In
                 </Button>
                 <MobileMenu />

@@ -1,7 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { currentCategory, setCategory } from '../../../features/storySlice'
 
 const SingleCategory = ({ category, background }) => {
+    const selectedCategory = useSelector(currentCategory)
+    const dispatch = useDispatch()
     return (
         <Box sx={{
             height: "10rem",
@@ -10,7 +14,7 @@ const SingleCategory = ({ category, background }) => {
             flexGrow: 0,
             flexShrink: 0,
             display: 'flex',
-            border: '1px solid rgba(0,0,0,0.1)',
+            border: selectedCategory === category?.id ? '4px solid #73ABFF' : '1px solid rgba(0,0,0,0)',
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'rgba(0,0,0,0.35)',
@@ -30,10 +34,15 @@ const SingleCategory = ({ category, background }) => {
                 backgroundColor: 'rgba(0, 0, 0, 0.4)',
                 borderRadius: '1.2rem'
             },
-            cursor: 'pointer'
-        }}>
+            cursor: 'pointer',
+
+        }}
+            onClick={() => {
+                dispatch(setCategory({ category: category.id }))
+            }}
+        >
             <Typography variant='h6' color={'white'} sx={{ zIndex: 1, fontWeight: 700, letterSpacing: 1 }}>
-                {category}
+                {category?.name}
             </Typography>
         </Box>
     )

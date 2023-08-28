@@ -42,7 +42,7 @@ const SingleViewStory = () => {
         <Box sx={{ ...singleStoryStyle, backgroundImage: `url(${story?.image})`, height: { md: '32rem', xs: '100vh' }, flexBasis: { md: '20rem', xs: '100vw' } }}>
             <Box sx={{ position: 'absolute', top: 0, left: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 2, width: '100%' }}>
                 <CloseIcon onClick={() => { handleClose() }} sx={{ color: 'white', fontSize: '2rem' }} />
-                <CopyToClipboard text={`${"http://localhost:3000/"}?story=${story?._id}`} >
+                <CopyToClipboard text={`${"https://swiptory-frontend-black.vercel.app/"}?story=${story?._id}`} >
 
                     <SendIcon sx={{ color: 'white', fontSize: '2rem', transform: 'rotate(-30deg)' }} />
                 </CopyToClipboard>

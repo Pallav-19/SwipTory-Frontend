@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 import { logout, setCredentials } from "../../features/authSlice";
-const baseURL = 'https://swiptory-backend.vercel.app'
+const baseURL = 'https://swiptory-backend-7yy4.onrender.com'
 const baseQuery = fetchBaseQuery({
     baseUrl: baseURL,
     credentials: 'include',

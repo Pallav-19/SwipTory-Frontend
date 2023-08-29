@@ -23,10 +23,16 @@ function App() {
   useEffect(() => {
 
     const fetch = async () => {
-      setLoading(true)
-      const response = await refresh()
-      dispatch(setCredentials({ user: response.data.user, token: response.data.token }))
-      setLoading(false)
+      try {
+        setLoading(true)
+        const response = await refresh()
+        dispatch(setCredentials({ user: response.data.user, token: response.data.token }))
+      } catch (error) {
+
+      } finally {
+
+        setLoading(false)
+      }
     }
     fetch()
   }, [])
@@ -39,7 +45,7 @@ function App() {
       <Routes>
         <Route path="/" exact index element={<Home />} />
         <Route element={<RequireAuth />} >
-          <Route  path='/bookmarks' element={<Bookmarks />} />
+          <Route path='/bookmarks' element={<Bookmarks />} />
         </Route>
 
       </Routes>

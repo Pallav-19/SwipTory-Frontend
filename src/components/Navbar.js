@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Typography } from '@mui/material'
-import React, {  } from 'react'
+import React, { } from 'react'
 import MobileMenu from './miscellaneous/MobileMenu'
 import AuthModal from './miscellaneous/auth/AuthModal'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,11 +9,12 @@ import { Bookmark } from '@mui/icons-material'
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom'
 import AddModal from './miscellaneous/Stories/AddModal'
+import { open } from '../features/authModalSlice'
 const Navbar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(currentUser)
-    const [open, setOpen] = React.useState(false);
+    const [isopen, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     return (
@@ -55,7 +56,7 @@ const Navbar = () => {
                             <AddIcon /> Add Story
                         </Button>
                         <Avatar sx={{ bgcolor: deepPurple[500], cursor: 'pointer' }}>{user?.username?.split('')[0].toUpperCase()}</Avatar>
-                        <AddModal open={open} handleClose={handleClose} />
+                        <AddModal open={isopen} handleClose={handleClose} />
                     </Box>
                 </>}
             <AuthModal />

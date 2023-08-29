@@ -32,7 +32,7 @@ export default function AuthModal() {
     const context = useSelector(currentContext)
     const dispatch = useDispatch()
     const handleClose = () => dispatch(close())
-    
+
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -40,8 +40,20 @@ export default function AuthModal() {
         },
         validationSchema: AuthValidation,
         onSubmit: async (values) => {
-            const { data } = context === 'login' ? await login({ ...values }) : await register({ ...values })
-            dispatch(setCredentials({ token: data.token, user: data.user }))
+            try {
+
+                const { data } = context === 'login' ? await login({ ...values }) : await register({ ...values })
+                dispatch(setCredentials({ token: data.token, user: data.user }))
+            } catch (error) {
+
+            } finally {
+                handleClose()
+                formik.resetForm({
+                    values: { username: '', password: '' },
+                    errors: {},
+                    touched: {},
+                });
+            }
         },
     });
     const [showPassword, setShowPassword] = React.useState(false);

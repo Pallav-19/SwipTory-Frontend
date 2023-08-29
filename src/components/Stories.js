@@ -17,11 +17,11 @@ const Stories = () => {
         error,
 
     } = useGetStoriesQuery({ category })
- 
+    if (isLoading) return (<p>loading...</p>)
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
-            <Typography variant='h5' sx={{ color: 'black', fontWeight: 800 }}>{isLoading ? "Fetching" : stories?.total ? "Top" : "No"} Stories {category !== "ALL" && `on ${category.toLowerCase()}`}</Typography>
+            <Typography variant='h5' sx={{ color: 'black', fontWeight: 800 }}>{stories?.total ? "Top" : "No"} Stories {category !== "ALL" && `on ${category.toLowerCase()}`}</Typography>
             <Box
                 sx={{
                     display: 'flex',
@@ -29,7 +29,7 @@ const Stories = () => {
                     maxWidth: '100vw',
                     flexWrap: 'wrap',
                     alignItems: 'center',
-                    justifyContent: { md: 'flex-start', xs: 'center' }
+                    justifyContent: { md: 'center', xs: 'center' }
                 }}>
                 {stories?.stories ? stories?.stories?.map(x => <SingleStory key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
             </Box>

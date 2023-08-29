@@ -5,6 +5,8 @@ import { useFetchMyStoriesQuery } from '../features/api/storyApiSlice'
 
 const MyStories = () => {
     const { data: myStories, isLoading } = useFetchMyStoriesQuery()
+    if (isLoading) return (<p>loading...</p>)
+
     return (
         <Box sx={{ display: myStories?.stories?.length > 0 ? 'flex' : 'none', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
             <Typography variant='h5' sx={{ color: 'black', fontWeight: 800 }}>Your Stories</Typography>

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import AddModal from './miscellaneous/Stories/AddModal'
 import { open } from '../features/authModalSlice'
 const Navbar = () => {
+    
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector(currentUser)
@@ -33,7 +34,7 @@ const Navbar = () => {
                 top: 0,
                 zIndex: 10
             }}>
-            <Typography variant='h4' sx={{ flexGrow: 1, fontWeight: 'bold' }} >
+            <Typography variant='h4' onClick={() => navigate("/")} sx={{ flexGrow: 1, fontWeight: 'bold', cursor: 'pointer' }} >
                 SwipTory
             </Typography>
             {!user ? <Box sx={{ display: 'flex', gap: 2 }}>

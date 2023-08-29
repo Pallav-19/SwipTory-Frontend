@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Box, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
-
+import { open as openModal } from '../../features/authModalSlice';
 
 
 const ITEM_HEIGHT = 48;
@@ -51,12 +51,12 @@ function MobileMenu({ handleOpen, setContext }) {
             >
 
                 <MenuItem sx={{ textAlign: 'center' }} >
-                    <Button onClick={() => { dispatch(open({ context: "register" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
+                    <Button onClick={() => { dispatch(openModal({ context: "register" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
                         Register Now
                     </Button>
                 </MenuItem>
                 <MenuItem >
-                    <Button onClick={() => { dispatch(open({ context: "login" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', '&:hover': { bgcolor: '#73ABFF', } }} variant='contained'>
+                    <Button onClick={() => { dispatch(openModal({ context: "login" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#73ABFF', '&:hover': { bgcolor: '#73ABFF', } }} variant='contained'>
                         Sign In
                     </Button>
                 </MenuItem>

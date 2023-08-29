@@ -1,20 +1,20 @@
-import { Avatar, Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React, { } from 'react'
 import MobileMenu from './miscellaneous/MobileMenu'
 import AuthModal from './miscellaneous/auth/AuthModal'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentUser } from '../features/authSlice'
-import { deepPurple } from '@mui/material/colors'
+import { currentToken } from '../features/authSlice'
 import { Bookmark } from '@mui/icons-material'
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom'
 import AddModal from './miscellaneous/Stories/AddModal'
 import { open } from '../features/authModalSlice'
+import LogoutMenu from './LogoutMenu'
 const Navbar = () => {
-    
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const user = useSelector(currentUser)
+    const token = useSelector(currentToken)
     const [isopen, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -37,7 +37,7 @@ const Navbar = () => {
             <Typography variant='h4' onClick={() => navigate("/")} sx={{ flexGrow: 1, fontWeight: 'bold', cursor: 'pointer' }} >
                 SwipTory
             </Typography>
-            {!user ? <Box sx={{ display: 'flex', gap: 2 }}>
+            {!token ? <Box sx={{ display: 'flex', gap: 2 }}>
 
                 <Button onClick={() => { dispatch(open({ context: "register" })) }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'block', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', } }} variant='contained'>
                     Register Now
@@ -56,8 +56,9 @@ const Navbar = () => {
                         <Button onClick={() => { handleOpen() }} sx={{ borderRadius: '1.25rem', bgcolor: '#FF7373', display: { md: 'flex', xs: 'none' }, '&:hover': { bgcolor: '#FF7373', }, alignItems: 'center', gap: 1 }} variant='contained'>
                             <AddIcon /> Add Story
                         </Button>
-                        <Avatar sx={{ bgcolor: deepPurple[500], cursor: 'pointer' }}>{user?.username?.split('')[0].toUpperCase()}</Avatar>
+                        <LogoutMenu />
                         <AddModal open={isopen} handleClose={handleClose} />
+                        <MobileMenu />
                     </Box>
                 </>}
             <AuthModal />

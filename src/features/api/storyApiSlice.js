@@ -2,33 +2,52 @@ import { apiSlice } from "../../app/api/apiSlice";
 const STORY_BASE_URL = '/api/story'
 export const storyApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        getStories: builder.query({
-            query: ({ category }) => STORY_BASE_URL + `/fetchStories?category=${category}`
-        }),
+
         getStoryById: builder.mutation({
             query: ({ id }) => ({
                 url: STORY_BASE_URL + "/fetchStoryById/" + id,
                 method: 'GET'
             })
         }),
-        fetchMyStories: builder.query({
-            query: () => "/api/user/getMyStories"
-        }),
+     
         react: builder.mutation({
-            query: (id) => ({
+            query: ({ id }) => ({
                 url: STORY_BASE_URL + "/react?id=" + id,
-                method: "POST"
+                method: "PATCH"
             })
         }),
-        fetchBookmarks: builder.query({
-            query: () => "/api/user/getBookmarks"
+        fetchBookmarks: builder.mutation({
+            query: () => ({
+                url: "/api/user/getBookmarks",
+                method: "GET",
+            })
+        }),
+        addBookmarks: builder.mutation({
+            query: ({ id }) => ({
+                url: "/api/user/addBookmark?id=" + id,
+                method: "PATCH"
+            })
+        }),
+        getStories: builder.mutation({
+            query: ({ category }) => ({
+                url: STORY_BASE_URL + `/fetchStories?category=${category}`,
+                method: "GET"
+            })
+        }),
+        fetchMyStories: builder.mutation({
+            query: () => ({
+                url: "/api/user/getMyStories",
+                method: "GET"
+            })
         })
+
     })
 })
 export const {
-    useGetStoriesQuery,
     useGetStoryByIdMutation,
-    useFetchMyStoriesQuery,
     useReactMutation,
-    useFetchBookmarksQuery,
+    useAddBookmarksMutation,
+    useFetchBookmarksMutation,
+    useGetStoriesMutation,
+    useFetchMyStoriesMutation
 } = storyApiSlice

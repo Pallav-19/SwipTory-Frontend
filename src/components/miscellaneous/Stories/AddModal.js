@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import AddForm from './AddForm';
 import { Close } from '@mui/icons-material';
-import { Backdrop, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 const style = {
     position: 'absolute',

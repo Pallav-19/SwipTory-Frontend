@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 import { logout, setCredentials } from "../../features/authSlice";
-const baseURL = 'https://swiptory-backend-7yy4.onrender.com'
+import { addNotification } from '../../features/notificationSlice';
+const baseURL = process.env.NODE_ENV === "production" ? 'https://swiptory-backend-7yy4.onrender.com' : "http://localhost:8000"
 const baseQuery = fetchBaseQuery({
     baseUrl: baseURL,
     credentials: 'include',
@@ -27,6 +28,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
             result = await baseQuery(args, api, extraOptions)
         } else {
             api.dispatch(logout())
+            const res = await baseQuery('/auth/logout', api, extraOptions)
+            api.dispatch(addNotification({ id: Date.now(), message: "Session Expired! Login Again!" }))
         }
     }
     return result

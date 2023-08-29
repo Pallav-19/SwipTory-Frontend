@@ -1,14 +1,37 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import SingleStory from '../miscellaneous/Stories/SingleStory'
-import { useFetchBookmarksQuery, } from '../../features/api/storyApiSlice'
+import { useFetchBookmarksMutation } from '../../features/api/storyApiSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { currentStories, setStories } from '../../features/storySlice'
+import Loader from './Loader'
+import { currentToken } from '../../features/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 
 const Bookmarks = () => {
-    const { data: bookmarks, isLoading } = useFetchBookmarksQuery()
-    if (isLoading) return (<p>Loading...</p>)
+    const bookmarks = useSelector(currentStories)
+    const [fetchBookmarks, { isLoading }] = useFetchBookmarksMutation()
+    const dispatch = useDispatch()
+    const token = useSelector(currentToken)
+    const navigate = useNavigate("")
+    useEffect(() => {
+        if (!token) return navigate("/");
+        const fetch = async () => {
+            try {
+                const { data } = await fetchBookmarks()
+                dispatch(setStories({ stories: data?.bookmarks, total: data?.total }))
+            } catch (error) {
+
+            }
+        }
+        fetch()
+
+    }, [])
+    if (isLoading) return (<Loader />)
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center', mt: 5 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center', padding: 5 }}>
             <Typography variant='h4' sx={{ color: 'black', fontWeight: 800 }}>Your Bookmarks</Typography>
             <Box
                 sx={{
@@ -17,9 +40,9 @@ const Bookmarks = () => {
                     maxWidth: '100vw',
                     flexWrap: 'wrap',
                     alignItems: 'center',
-                    justifyContent: { md: 'space-between', xs: 'center' }
+                    justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {bookmarks?.bookmarks?.length > 0 ? bookmarks?.bookmarks?.map(x => <SingleStory key={x._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
+                {bookmarks?.length > 0 ? bookmarks?.map(x => <SingleStory key={x._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
             </Box>
 
         </Box>

@@ -216,7 +216,7 @@ const SingleViewStory = () => {
                                     dispatch(unsetViewContext())
                                     return dispatch(open({ context: "login" }))
                                 }
-                                like(story._id)
+                                like(story?._id)
                             }}
                             sx={{ color: (user && liked) ? '#f50057' : 'white', fontSize: '2rem', cursor: 'pointer' }}
                         />

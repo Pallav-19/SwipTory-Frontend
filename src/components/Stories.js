@@ -19,7 +19,7 @@ const Stories = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const { data } = await getStories({ category, limit })
+                const { data } = await getStories({ category })
                 if (data) {
                     dispatch(setStories({ stories: data?.stories, total: data?.total }))
                 }
@@ -28,7 +28,7 @@ const Stories = () => {
             }
         }
         fetch()
-    }, [category, limit])
+    }, [category])
 
 
 
@@ -44,9 +44,9 @@ const Stories = () => {
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {stories ? stories?.map(x => <SingleStory viewContext={stories} viewContextTotal={total} key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
+                {stories ? stories?.slice(0, limit)?.map(x => <SingleStory viewContext={stories} viewContextTotal={total} key={x?._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
             </Box>
-            {isLoading ? <Loader /> : (stories?.length !== total && total !== 0) && < Box >
+            {isLoading ? <Loader /> : (stories?.slice(0, limit)?.length !== total && total !== 0) && < Box >
                 <Button onClick={() => { setLimit(limit + 4) }} variant='contained' sx={{ borderRadius: '1.2rem', '&:hover': { bgcolor: '#FF7373', }, bgcolor: '#FF7373', }}>See More</Button>
             </Box>}
 

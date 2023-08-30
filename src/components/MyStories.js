@@ -15,11 +15,11 @@ const MyStories = () => {
     const [limit, setLimit] = useState(4)
     useEffect(() => {
         const fetch = async () => {
-            const { data } = await fetchMyStories({ limit })
+            const { data } = await fetchMyStories({})
             dispatch(setMyStories({ myStories: data?.stories, total: data?.total }))
         }
         fetch()
-    }, [limit])
+    }, [])
 
 
     return (
@@ -34,9 +34,9 @@ const MyStories = () => {
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {myStories?.length > 0 ? myStories?.map(x => <SingleStory viewContext={myStories} viewContextTotal={myStoriesCount} key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
+                {myStories?.length > 0 ? myStories?.slice(0, limit)?.map(x => <SingleStory viewContext={myStories} viewContextTotal={myStoriesCount} key={x?._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
             </Box>
-            {(isLoading ? <Loader /> : myStories?.length !== myStoriesCount && myStoriesCount !== 0) &&
+            {(isLoading ? <Loader /> : myStories?.slice(0, limit)?.length !== myStoriesCount && myStoriesCount !== 0) &&
                 <Box>
                     <Button onClick={() => { setLimit(limit + 4) }} variant='contained' sx={{ borderRadius: '1.2rem', '&:hover': { bgcolor: '#FF7373', }, bgcolor: '#FF7373', }}>See More</Button>
                 </Box>}

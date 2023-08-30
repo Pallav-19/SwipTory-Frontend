@@ -37,13 +37,13 @@ const Bookmarks = () => {
             <Box
                 sx={{
                     display: 'flex',
-                    gap: 5,
+                    gap: 8,
                     maxWidth: '100vw',
                     flexWrap: 'wrap',
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {bookmarks?.length > 0 ? bookmarks?.map(x => <SingleStory viewContext={bookmarks} viewContextTotal={totalCount} key={x._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
+                {bookmarks?.length > 0 ? bookmarks?.map(x => <SingleStory viewContext={bookmarks} viewContextTotal={totalCount} key={x?._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
             </Box>
 
         </Box>

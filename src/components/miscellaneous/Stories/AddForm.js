@@ -9,20 +9,18 @@ import { useAddStoryMutation } from '../../../features/api/storyApiSlice';
 import Loader from '../Loader';
 import { addStory as afterAdding } from '../../../features/storySlice';
 
-
-
 const categories = ["FOOD", 'TRAVEL', 'WORLD', 'EDUCATION', 'HEALTH', 'FITNESS', "ENTERTAINMENT"];
 
-const FormComponent = ({ handleClose }) => {
+const AddForm = ({ handleClose }) => {
     const isMobile = useMediaQuery('(max-width: 900px)')
     const validationSchema = Yup.object().shape({
         stories: Yup.array()
             .of(
                 Yup.object().shape({
-                    heading: Yup.string().required(isMobile ? 'required' : 'Heading is required'),
-                    description: Yup.string().required(isMobile ? 'required' : 'Description is required'),
-                    image: Yup.string().required(isMobile ? 'required' : 'Image URL is required'),
-                    category: Yup.string().required(isMobile ? 'required' : 'Category is required'),
+                    heading: Yup.string().required('Heading is required'),
+                    description: Yup.string().required('Description is required'),
+                    image: Yup.string().required('Image URL is required'),
+                    category: Yup.string().required('Category is required'),
                 })
             )
             .min(3, 'You need to have at least 3 stories'),
@@ -78,7 +76,7 @@ const FormComponent = ({ handleClose }) => {
                                     alignItems: 'center',
                                     gap: 5,
                                     flexDirection: { md: 'column', xs: 'row' },
-                                    
+
                                 }}>
                                     <Box sx={{
                                         display: 'flex',
@@ -289,4 +287,4 @@ const FormComponent = ({ handleClose }) => {
     );
 };
 
-export default FormComponent;
+export default AddForm;

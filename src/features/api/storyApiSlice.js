@@ -29,14 +29,14 @@ export const storyApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getStories: builder.mutation({
-            query: ({ category, limit }) => ({
-                url: STORY_BASE_URL + `/fetchStories?category=${category}&limit=${limit}`,
+            query: ({ category }) => ({
+                url: STORY_BASE_URL + `/fetchStories?category=${category}`,
                 method: "GET"
             })
         }),
         fetchMyStories: builder.mutation({
-            query: ({ limit }) => ({
-                url: "/api/user/getMyStories?limit=" + limit,
+            query: () => ({
+                url: "/api/user/getMyStories",
                 method: "GET"
             })
         }),

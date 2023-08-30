@@ -9,7 +9,7 @@ export const storyApiSlice = apiSlice.injectEndpoints({
                 method: 'GET'
             })
         }),
-     
+
         react: builder.mutation({
             query: ({ id }) => ({
                 url: STORY_BASE_URL + "/react?id=" + id,
@@ -29,16 +29,28 @@ export const storyApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getStories: builder.mutation({
-            query: ({ category }) => ({
-                url: STORY_BASE_URL + `/fetchStories?category=${category}`,
+            query: ({ category, limit }) => ({
+                url: STORY_BASE_URL + `/fetchStories?category=${category}&limit=${limit}`,
                 method: "GET"
             })
         }),
         fetchMyStories: builder.mutation({
-            query: () => ({
-                url: "/api/user/getMyStories",
+            query: ({ limit }) => ({
+                url: "/api/user/getMyStories?limit=" + limit,
                 method: "GET"
             })
+        }),
+        addStory: builder.mutation({
+            query: ({ stories }) => {
+                const body = {
+                    stories
+                }
+                return {
+                    url: STORY_BASE_URL + "/createStory",
+                    method: "POST",
+                    body: JSON.stringify(body)
+                }
+            }
         })
 
     })
@@ -49,5 +61,6 @@ export const {
     useAddBookmarksMutation,
     useFetchBookmarksMutation,
     useGetStoriesMutation,
-    useFetchMyStoriesMutation
+    useFetchMyStoriesMutation,
+    useAddStoryMutation
 } = storyApiSlice

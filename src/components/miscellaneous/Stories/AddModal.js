@@ -42,7 +42,7 @@ export default function AddModal({ open, handleClose }) {
                         <Close />
                     </IconButton>
 
-                    <AddForm />
+                    <AddForm handleClose={handleClose} />
                 </Box>
             </Modal>
         </div>

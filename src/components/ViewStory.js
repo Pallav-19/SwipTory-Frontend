@@ -6,11 +6,11 @@ import SingleViewStory from './miscellaneous/Stories/SingleViewStory'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useDispatch, useSelector } from 'react-redux';
-import { currentStories, currentStory, currentTotal, setStory } from '../features/storySlice';
+import { currentStories, currentStory, currentTotal, currentViewContext, setStory } from '../features/storySlice';
 import { useSearchParams } from 'react-router-dom';
 const ViewStory = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const stories = useSelector(currentStories)
+    const stories = useSelector(currentViewContext)
     const currStory = useSelector(currentStory)
     const index = (stories?.indexOf(stories?.find(x => x?._id === currStory?._id))) || 0
     const dispatch = useDispatch()

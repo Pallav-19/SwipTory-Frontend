@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { Box, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { setStory } from '../../../features/storySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStory, setViewContext } from '../../../features/storySlice';
+import { EditOutlined } from '@mui/icons-material';
+import { currentUser } from '../../../features/authSlice';
 export const singleStoryStyle = {
     height: "28rem",
     flexBasis: '16rem',
@@ -30,12 +32,14 @@ export const singleStoryStyle = {
     },
     cursor: 'pointer'
 }
-const SingleStory = ({ story }) => { 
+const SingleStory = ({ story, viewContext, viewContextTotal }) => {
 
     const dispatch = useDispatch()
     const handleClick = () => {
         dispatch(setStory({ story }))
+        dispatch(setViewContext({ context: viewContext, total: viewContextTotal }))
     }
+    const user = useSelector(currentUser)
     return (
         <Box
 
@@ -54,6 +58,9 @@ const SingleStory = ({ story }) => {
                 </Typography>
 
             </Box>
+            {story.createdBy._id === user._id && <Button startIcon={<EditOutlined />} size='small' variant='contained' sx={{ position: 'absolute', bottom: "-3%", left: "50%", transform: 'translate(-50%,3%)', color: 'primary.main', bgcolor: 'white', '&:hover': { color: 'primary.main', bgcolor: 'white' }, zIndex: 50 }}>
+                edit
+            </Button>}
         </Box >
     )
 }

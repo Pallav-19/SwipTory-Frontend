@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import SingleStory from '../miscellaneous/Stories/SingleStory'
 import { useFetchBookmarksMutation } from '../../features/api/storyApiSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentStories, setStories } from '../../features/storySlice'
+import { currentStories, currentTotal, setStories } from '../../features/storySlice'
 import Loader from './Loader'
 import { currentToken } from '../../features/authSlice'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Bookmarks = () => {
     const bookmarks = useSelector(currentStories)
+    const totalCount = useSelector(currentTotal)
     const [fetchBookmarks, { isLoading }] = useFetchBookmarksMutation()
     const dispatch = useDispatch()
     const token = useSelector(currentToken)
@@ -42,7 +43,7 @@ const Bookmarks = () => {
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {bookmarks?.length > 0 ? bookmarks?.map(x => <SingleStory key={x._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
+                {bookmarks?.length > 0 ? bookmarks?.map(x => <SingleStory viewContext={bookmarks} viewContextTotal={totalCount} key={x._id} story={x} />) : <Typography variant='h5' sx={{ textAlign: 'center', width: '100%' }}>No Bookmarks!</Typography>}
             </Box>
 
         </Box>

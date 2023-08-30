@@ -10,8 +10,10 @@ import { Bookmark, Logout } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import AddModal from './Stories/AddModal';
-import { currentToken, currentUser } from '../../features/authSlice';
+import { currentToken, currentUser, logout as logoutAction } from '../../features/authSlice';
 import { deepPurple } from '@mui/material/colors';
+import { addNotification } from '../../features/notificationSlice';
+import { useLogoutMutation } from '../../features/api/authApiSlice';
 
 
 const ITEM_HEIGHT = 48;
@@ -26,9 +28,21 @@ function MobileMenu({ handleOpen, setContext }) {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const [logout] = useLogoutMutation()
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleLogout = async () => {
+        try {
+            const res = await logout()
+            dispatch(logoutAction())
+            if (res) {
+                dispatch(addNotification({ id: Date.now(), message: "You have been logged out!" }))
+            }
+        } catch (error) {
+            dispatch(addNotification({ id: Date.now(), message: "Internal Error!" }))
+        }
+    }
     const token = useSelector(currentToken)
     const user = useSelector(currentUser)
     const navigate = useNavigate()
@@ -94,7 +108,12 @@ function MobileMenu({ handleOpen, setContext }) {
                                     </Button>
                                 </MenuItem>
 
-                                <MenuItem>
+                                <MenuItem onClick={
+                                    () => {
+                                        handleLogout()
+
+                                    }
+                                }>
                                     <Button fullWidth sx={{ borderRadius: '1.25rem', display: { md: 'none', xs: 'flex' }, alignItems: 'center', gap: 1 }} variant='contained' color='error'>
                                         <Logout /> logout
                                     </Button>

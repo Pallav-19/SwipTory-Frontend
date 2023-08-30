@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { singleStoryStyle } from './SingleStory'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentCategory, currentStories, currentStory, currentTotal, setStory, unsetStory, updateStories } from '../../../features/storySlice'
+import { currentCategory, currentStories, currentStory, currentTotal, currentViewContext, setStory, unsetStory, unsetViewContext, updateStories } from '../../../features/storySlice'
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SendIcon from '@mui/icons-material/Send';
 import CloseIcon from '@mui/icons-material/Close';
@@ -22,8 +22,7 @@ const SingleViewStory = () => {
     const story = useSelector(currentStory)
     const user = useSelector(currentUser)
     const token = useSelector(currentToken)
-    const stories = useSelector(currentStories)
-    const total = useSelector(currentTotal)
+    const stories = useSelector(currentViewContext)
     const dispatch = useDispatch()
     const [added, setAdded] = useState()
     const [liked, setLiked] = useState()
@@ -83,6 +82,7 @@ const SingleViewStory = () => {
     }, [searchParams])
     const handleClose = () => {
         dispatch(unsetStory());
+        dispatch(unsetViewContext())
         setSearchParams((params) => { params.delete('story'); return params; })
     }
     const [expand, setExpand] = useState(false)
@@ -151,7 +151,7 @@ const SingleViewStory = () => {
                         color: 'white',
                         fontSize: '2rem',
                         cursor: 'pointer',
-                        visibility: total - 1 === index ? "hidden" : ""
+                        visibility: stories?.length - 1 === index ? "hidden" : ""
                     }}
                 />
             </Box>
@@ -197,7 +197,11 @@ const SingleViewStory = () => {
                     }}>
                     <BookmarkIcon
                         onClick={() => {
-                            if (!token) { dispatch(unsetStory()); return dispatch(open({ context: "login" })) }
+                            if (!token) {
+                                dispatch(unsetStory());
+                                dispatch(unsetViewContext())
+                                return dispatch(open({ context: "login" }))
+                            }
                             bookmark(story?._id)
                         }}
                         sx={{ color: (user && added) ? '#73ABFF' : 'white', fontSize: '2rem', cursor: 'pointer' }}
@@ -207,7 +211,11 @@ const SingleViewStory = () => {
 
                         <Favorite
                             onClick={() => {
-                                if (!token) { dispatch(unsetStory()); return dispatch(open({ context: "login" })) }
+                                if (!token) {
+                                    dispatch(unsetStory());
+                                    dispatch(unsetViewContext())
+                                    return dispatch(open({ context: "login" }))
+                                }
                                 like(story._id)
                             }}
                             sx={{ color: (user && liked) ? '#f50057' : 'white', fontSize: '2rem', cursor: 'pointer' }}

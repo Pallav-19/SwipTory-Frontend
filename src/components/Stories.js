@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { Box, Button, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleStory from './miscellaneous/Stories/SingleStory'
 import { useGetStoriesMutation } from '../features/api/storyApiSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,10 +15,11 @@ const Stories = () => {
     const stories = useSelector(currentStories)
     const total = useSelector(currentTotal)
     const dispatch = useDispatch()
+    const [limit, setLimit] = useState(4)
     useEffect(() => {
         const fetch = async () => {
             try {
-                const { data } = await getStories({ category })
+                const { data } = await getStories({ category, limit })
                 if (data) {
                     dispatch(setStories({ stories: data?.stories, total: data?.total }))
                 }
@@ -27,9 +28,9 @@ const Stories = () => {
             }
         }
         fetch()
-    }, [category])
+    }, [category, limit])
 
-    if (isLoading) return (<Loader/>)
+
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'center' }}>
@@ -43,10 +44,10 @@ const Stories = () => {
                     alignItems: 'center',
                     justifyContent: { md: 'flex-start', xs: 'center' }
                 }}>
-                {stories ? stories?.map(x => <SingleStory key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
+                {stories ? stories?.map(x => <SingleStory viewContext={stories} viewContextTotal={total} key={x._id} story={x} />) : <Typography sx={{ textAlign: 'center' }}>No Stories</Typography>}
             </Box>
-            {(stories?.length !== total && total !== 0) && < Box >
-                <Button variant='contained' sx={{ borderRadius: '1.2rem', '&:hover': { bgcolor: '#FF7373', }, bgcolor: '#FF7373', }}>See More</Button>
+            {isLoading ? <Loader /> : (stories?.length !== total && total !== 0) && < Box >
+                <Button onClick={() => { setLimit(limit + 4) }} variant='contained' sx={{ borderRadius: '1.2rem', '&:hover': { bgcolor: '#FF7373', }, bgcolor: '#FF7373', }}>See More</Button>
             </Box>}
 
         </Box >

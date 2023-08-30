@@ -12,10 +12,11 @@ import { useEffect, useState } from 'react';
 import { useLogoutMutation, useRefreshMutation } from './features/api/authApiSlice';
 import { currentUser, logout as logoutAction, setCredentials } from './features/authSlice';
 import RequireAuth from './app/guards/RequireAuth';
-import Bookmarks from './components/miscellaneous/Bookmarks';
+import Bookmarks from './components/Bookmarks';
 import Notifications from './components/miscellaneous/notifications/Notifications';
 import { useGetStoryByIdMutation } from './features/api/storyApiSlice';
 import Loader from './components/miscellaneous/Loader';
+import EditModal from './components/EditModal';
 function App() {
   const story = useSelector(currentStory)
   const user = useSelector(currentUser)
@@ -63,6 +64,7 @@ function App() {
 
         <Navbar />
         <Notifications />
+        <EditModal />
         {(story || searchParams.get('story')) && <ViewStory />}
         <Routes>
           <Route path="/" exact index element={<Home />} />

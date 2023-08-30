@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
-import SingleStory from '../miscellaneous/Stories/SingleStory'
-import { useFetchBookmarksMutation } from '../../features/api/storyApiSlice'
+import SingleStory from './miscellaneous/Stories/SingleStory'
+import { useFetchBookmarksMutation } from '../features/api/storyApiSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { currentStories, currentTotal, setStories } from '../../features/storySlice'
-import Loader from './Loader'
-import { currentToken } from '../../features/authSlice'
+import { currentStories, currentTotal, setStories } from '../features/storySlice'
+import Loader from './miscellaneous/Loader'
+import { currentToken } from '../features/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 

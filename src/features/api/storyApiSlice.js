@@ -51,6 +51,13 @@ export const storyApiSlice = apiSlice.injectEndpoints({
                     body: JSON.stringify(body)
                 }
             }
+        }),
+        editStory: builder.mutation({
+            query: ({ heading, description, image, category, id }) => ({
+                url: STORY_BASE_URL + "/updateStory?id=" + id,
+                method: "PUT",
+                body: JSON.stringify({ heading, description, image, category })
+            })
         })
 
     })
@@ -62,5 +69,6 @@ export const {
     useFetchBookmarksMutation,
     useGetStoriesMutation,
     useFetchMyStoriesMutation,
-    useAddStoryMutation
+    useAddStoryMutation,
+    useEditStoryMutation
 } = storyApiSlice

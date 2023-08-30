@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const storySlice = createSlice({
     name: 'story',
-    initialState: { category: 'ALL', story: null, stories: [], total: 0, myStories: [], myTotalStories: 0, viewContext: null, viewContextTotal: null },
+    initialState: { category: 'ALL', story: null, stories: [], total: 0, myStories: [], myTotalStories: 0, viewContext: null, viewContextTotal: null, editing: null },
     reducers: {
         setCategory: (state, action) => {
             const { category } = action.payload
@@ -51,6 +51,12 @@ const storySlice = createSlice({
         unsetViewContext: (state, action) => {
             state.viewContext = null
             state.viewContextTotal = null
+        },
+        setEditing: (state, action) => {
+            state.editing = action.payload.editing
+        }
+        , updateCurrentStory: (state, action) => {
+            state.story = action.payload.story
         }
 
 
@@ -58,7 +64,7 @@ const storySlice = createSlice({
     }
 })
 
-export const { setCategory, setStory, unsetStory, setStories, updateStories, setMyStories, updateMyStories, addStory, setViewContext, unsetViewContext } = storySlice.actions
+export const { setCategory, setStory, unsetStory, setStories, updateStories, setMyStories, updateMyStories, addStory, setViewContext, unsetViewContext, setEditing, updateCurrentStory } = storySlice.actions
 export default storySlice.reducer;
 export const currentCategory = (state) => state.story.category
 export const currentStory = (state) => state.story.story
@@ -68,6 +74,7 @@ export const currentMyStoriesTotal = (state) => state.story.myTotalStories
 export const currentMyStories = (state) => state.story.myStories
 export const currentViewContext = (state) => state.story.viewContext;
 export const currentViewContextTotal = (state) => state.story.viewContextTotal
+export const currentEditing = (state) => state.story.editing
 
 
 

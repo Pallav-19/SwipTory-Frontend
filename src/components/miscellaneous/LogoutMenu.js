@@ -10,9 +10,9 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { deepPurple } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { currentUser, logout as logoutAction } from '../features/authSlice';
-import { useLogoutMutation } from '../features/api/authApiSlice';
-import { addNotification } from '../features/notificationSlice';
+import { currentUser, logout as logoutAction } from '../../features/authSlice';
+import { useLogoutMutation } from '../../features/api/authApiSlice';
+import { addNotification } from '../../features/notificationSlice';
 
 export default function LogoutMenu() {
     const [anchorEl, setAnchorEl] = React.useState(null);

@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom'
 import AddModal from './miscellaneous/Stories/AddModal'
 import { open } from '../features/authModalSlice'
-import LogoutMenu from './LogoutMenu'
+import LogoutMenu from './miscellaneous/LogoutMenu'
 const Navbar = () => {
 
     const dispatch = useDispatch()

@@ -41,11 +41,13 @@ const AddForm = ({ handleClose }) => {
                 const { stories } = values
                 try {
                     const { data } = await addStory({ stories })
-                    dispatch(afterAdding({ story: data.result }))
+                    if (data) {
+                        dispatch(afterAdding({ story: data.result }));
+                    }
                     if (!data) dispatch(addNotification({ id: Date.now(), message: "Something went wrong!" }))
                     handleClose()
                 } catch (error) {
-                    dispatch(addNotification({ mesasge: "" }))
+                    dispatch(addNotification({ mesasge: "Something Went Wrong", id: Date.now() }))
                 } finally {
 
                     setSubmitting(false);
@@ -61,7 +63,6 @@ const AddForm = ({ handleClose }) => {
                         }
                     })
                     handleSubmit()
-                    console.log(errors);
                 }}>
                     <FieldArray name="stories">
                         {({ push, remove }) => (
@@ -140,13 +141,11 @@ const AddForm = ({ handleClose }) => {
                                     {values.stories.map((item, index) => (
                                         <Box
                                             key={index}
-                                            style={{
+                                            sx={{
                                                 display: index === values.activeTabIndex ? 'flex' : 'none',
                                                 flexDirection: 'column',
-                                                gap: { md: 6, xs: 1 },
+                                                gap: { md: 2, xs: 1 },
                                                 width: 'inherit',
-                                                marginTop: 10,
-
 
                                             }}>
                                             <Box

@@ -2,10 +2,11 @@
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setStory, setViewContext } from '../../../features/storySlice';
+import { setEditing, setStory, setViewContext } from '../../../features/storySlice';
 import { EditOutlined } from '@mui/icons-material';
 import { currentUser } from '../../../features/authSlice';
 import { useLocation } from 'react-router-dom';
+import EditModal from '../../EditModal';
 export const singleStoryStyle = {
     height: "28rem",
     flexBasis: '16rem',
@@ -60,7 +61,7 @@ const SingleStory = ({ story, viewContext, viewContextTotal }) => {
                 </Typography>
 
             </Box>
-            {story.createdBy?._id === user?._id && location?.pathname !== "/bookmarks" && <Button onClick={() => { console.log("clicked"); }} startIcon={<EditOutlined />} size='small' variant='contained' sx={{ position: 'absolute', bottom: "-3%", left: "50%", transform: 'translate(-50%,3%)', color: 'primary.main', bgcolor: 'white', '&:hover': { color: 'primary.main', bgcolor: 'white' }, zIndex: 50 }}>
+            {story.createdBy?._id === user?._id && location?.pathname !== "/bookmarks" && <Button onClick={() => { dispatch(setEditing({ editing: story })) }} startIcon={<EditOutlined />} size='small' variant='contained' sx={{ position: 'absolute', bottom: "-3%", left: "50%", transform: 'translate(-50%,3%)', color: 'primary.main', bgcolor: 'white', '&:hover': { color: 'primary.main', bgcolor: 'white' }, zIndex: 50 }}>
                 edit
             </Button>}
         </Box >

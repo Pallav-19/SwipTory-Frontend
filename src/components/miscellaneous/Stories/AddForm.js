@@ -77,7 +77,8 @@ const FormComponent = ({ handleClose }) => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: 5,
-                                    flexDirection: { md: 'column', xs: 'row' }
+                                    flexDirection: { md: 'column', xs: 'row' },
+                                    
                                 }}>
                                     <Box sx={{
                                         display: 'flex',
@@ -146,7 +147,9 @@ const FormComponent = ({ handleClose }) => {
                                                 flexDirection: 'column',
                                                 gap: { md: 6, xs: 1 },
                                                 width: 'inherit',
-                                                marginTop: 10
+                                                marginTop: 10,
+
+
                                             }}>
                                             <Box
 

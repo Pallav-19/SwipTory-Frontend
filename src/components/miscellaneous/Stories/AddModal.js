@@ -14,7 +14,9 @@ const style = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-    borderRadius: '1.25rem !important'
+    borderRadius: '1.25rem !important',
+    maxHeight: "100vh",
+    overflowY: 'scroll'
 };
 
 export default function AddModal({ open, handleClose }) {

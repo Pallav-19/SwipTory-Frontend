@@ -2,7 +2,7 @@
 import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react'
 import { logout, setCredentials } from "../../features/authSlice";
 import { addNotification } from '../../features/notificationSlice';
-const baseURL = "https://swiptory-backend.com"
+const baseURL = "https://swiptory-backend.pallav.site"
 const baseQuery = fetchBaseQuery({
     baseUrl: baseURL,
     credentials: 'include',
